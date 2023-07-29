@@ -8,7 +8,7 @@
 }
 
 html {
-    font-family: "D2Coding", "Open Sans", sans-serif;
+    font-family: "Open Sans", sans-serif;
     color: var(--fg);
     background-color: var(--bg);
     text-size-adjust: none;
@@ -130,7 +130,7 @@ h6:target::before {
 }
 
 .content p {
-    line-height: 1.45em;
+    line-height: 1.5em;
 }
 
 .content ol {
