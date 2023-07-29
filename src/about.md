@@ -2,22 +2,23 @@
 
 6년차 SW 개발자입니다.
 
-지급 업무로 하는거
+지금
 
 - Rust (Tokio, axum, serde, chrono, sqlx, rdkafka, fred, ulid, utoipa) 
-- MongoDB, PostgreSQL, Clickhouse, Kafka, Redis, Elasticsearch, Zookeeper, MySQL, Oracle
+- MongoDB, PostgreSQL, Clickhouse, Kafka, Redis, Elasticsearch, Zookeeper
 - AWS Route53, ALB, EC2, S3, CloudFront, CloudWatch, API Gateway, DynamoDB, ECR
 - Superset, Grafana, Docker, Gitlab CI/CD
 - Python (AWS Lambda)
 - NodeJS (Express)
 
-과거 업무로 해본거
+과거
 
 - Kotlin (Android jetpack, Room)
 - Java (Spting, Mybatis, JMS, ActiveMQ)
-- Typescript (vue, nuxt)
+- Typescript (vue, nuxt, vuetify), jQuery, Bootstrap
+- MySQL, Oracle
 
-혼자 해본거
+혼자
 
 - Flutter (Flame)
 - React
