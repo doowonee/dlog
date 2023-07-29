@@ -7,8 +7,8 @@ src = "src"
 title = "Doowonee"
 
 [output.html]
-default-theme = "rust"
-preferred-dark-theme = "rust"
+default-theme = "coal"
+preferred-dark-theme = "coal"
 no-section-label = true
 git-repository-url = "https://github.com/doowonee/dlog"
 git-repository-icon = "fa-github"

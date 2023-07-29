@@ -1,8 +1,9 @@
 # Summary
 
-[About](./about.md)
+[About me](./about.md)
+[Cheatsheet](./cheatsheet.md)
 
-- [Scheduling](./1.md)
+- [Scheduling system design](./1.md)
 
 -----------
 

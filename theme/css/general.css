@@ -17,7 +17,7 @@ html {
 
 body {
     margin: 0;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     overflow-x: hidden;
 }
 
@@ -130,7 +130,7 @@ h6:target::before {
 }
 
 .content p {
-    line-height: 1.5em;
+    line-height: 1.6em;
 }
 
 .content ol {
@@ -139,6 +139,10 @@ h6:target::before {
 
 .content ul {
     line-height: 1.45em;
+}
+
+.content li::marker {
+    font-family: monospace;
 }
 
 .content a {
