@@ -1,4 +1,4 @@
-name: Gh-Pages
+name: Deploy mdBook
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2 # Only works with v2
-      - uses: subosito/flutter-action@v1
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - uses: actions/checkout@v2
+      - uses: XAMPPRocky/deploy-mdbook@v1.1
+        with:
+            token: ${{ secrets.GITHUB_TOKEN }}

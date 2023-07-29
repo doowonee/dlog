@@ -1,0 +1,21 @@
+[book]
+authors = ["Doowonee"]
+description = "My peronal blog"
+language = "ko"
+multilingual = false
+src = "src"
+title = "Doowonee"
+
+[output.html]
+default-theme = "rust"
+preferred-dark-theme = "rust"
+no-section-label = true
+git-repository-url = "https://github.com/doowonee/dlog"
+git-repository-icon = "fa-github"
+
+[output.html.fold]
+enable = true
+level = 0
+
+[output.html.print]
+enable = false
