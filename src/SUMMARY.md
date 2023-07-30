@@ -2,10 +2,11 @@
 
 [About](./about.md)
 - [Cheatsheet](./cheatsheet.md)
-    - [Shell](./shell.md)
-    - [English](./english.md)
+    - [Shell](./cheatsheet/shell.md)
+    - [English](./cheatsheet/english.md)
+    - [NATS](./cheatsheet/nats.md)
 
-- [Scheduling system design](./1.md)
+- [Scheduling system design](./post/1.md)
 
 -----------
 
