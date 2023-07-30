@@ -34,12 +34,12 @@ function playground_text(playground, hidden = true) {
             method: 'POST',
             mode: 'cors',
         })
-        .then(response => response.json())
-        .then(response => {
-            // get list of crates available in the rust playground
-            let playground_crates = response.crates.map(item => item["id"]);
-            playgrounds.forEach(block => handle_crate_list_update(block, playground_crates));
-        });
+            .then(response => response.json())
+            .then(response => {
+                // get list of crates available in the rust playground
+                let playground_crates = response.crates.map(item => item["id"]);
+                playgrounds.forEach(block => handle_crate_list_update(block, playground_crates));
+            });
     }
 
     function handle_crate_list_update(playground_block, playground_crates) {
@@ -111,9 +111,9 @@ function playground_text(playground, hidden = true) {
         let text = playground_text(code_block);
         let classes = code_block.querySelector('code').classList;
         let edition = "2015";
-        if(classes.contains("edition2018")) {
+        if (classes.contains("edition2018")) {
             edition = "2018";
-        } else if(classes.contains("edition2021")) {
+        } else if (classes.contains("edition2021")) {
             edition = "2021";
         }
         var params = {
@@ -137,17 +137,17 @@ function playground_text(playground, hidden = true) {
             mode: 'cors',
             body: JSON.stringify(params)
         })
-        .then(response => response.json())
-        .then(response => {
-            if (response.result.trim() === '') {
-                result_block.innerText = "No output";
-                result_block.classList.add("result-no-output");
-            } else {
-                result_block.innerText = response.result;
-                result_block.classList.remove("result-no-output");
-            }
-        })
-        .catch(error => result_block.innerText = "Playground Communication: " + error.message);
+            .then(response => response.json())
+            .then(response => {
+                if (response.result.trim() === '') {
+                    result_block.innerText = "No output";
+                    result_block.classList.add("result-no-output");
+                } else {
+                    result_block.innerText = response.result;
+                    result_block.classList.remove("result-no-output");
+                }
+            })
+            .catch(error => result_block.innerText = "Playground Communication: " + error.message);
     }
 
     // Syntax highlighting Configuration
@@ -159,17 +159,17 @@ function playground_text(playground, hidden = true) {
     let code_nodes = Array
         .from(document.querySelectorAll('code'))
         // Don't highlight `inline code` blocks in headers.
-        .filter(function (node) {return !node.parentElement.classList.contains("header"); });
+        .filter(function (node) { return !node.parentElement.classList.contains("header"); });
 
     if (window.ace) {
         // language-rust class needs to be removed for editable
         // blocks or highlightjs will capture events
         code_nodes
-            .filter(function (node) {return node.classList.contains("editable"); })
+            .filter(function (node) { return node.classList.contains("editable"); })
             .forEach(function (block) { block.classList.remove('language-rust'); });
 
         code_nodes
-            .filter(function (node) {return !node.classList.contains("editable"); })
+            .filter(function (node) { return !node.classList.contains("editable"); })
             .forEach(function (block) { hljs.highlightBlock(block); });
     } else {
         code_nodes.forEach(function (block) { hljs.highlightBlock(block); });
@@ -391,7 +391,7 @@ function playground_text(playground, hidden = true) {
         set_theme(theme);
     });
 
-    themePopup.addEventListener('focusout', function(e) {
+    themePopup.addEventListener('focusout', function (e) {
         // e.relatedTarget is null in Safari and Firefox on macOS (see workaround below)
         if (!!e.relatedTarget && !themeToggleButton.contains(e.relatedTarget) && !themePopup.contains(e.relatedTarget)) {
             hideThemes();
@@ -399,7 +399,7 @@ function playground_text(playground, hidden = true) {
     });
 
     // Should not be needed, but it works around an issue on macOS & iOS: https://github.com/rust-lang/mdBook/issues/628
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         if (themePopup.style.display === 'block' && !themeToggleButton.contains(e.target) && !themePopup.contains(e.target)) {
             hideThemes();
         }
@@ -444,6 +444,8 @@ function playground_text(playground, hidden = true) {
     var html = document.querySelector("html");
     var sidebar = document.getElementById("sidebar");
     var sidebarLinks = document.querySelectorAll('#sidebar a');
+    var sidebarLinks = document.querySelectorAll('#sidebar a');
+
     var sidebarToggleButton = document.getElementById("sidebar-toggle");
     var sidebarResizeHandle = document.getElementById("sidebar-resize-handle");
     var firstContact = null;
@@ -461,12 +463,17 @@ function playground_text(playground, hidden = true) {
 
 
     var sidebarAnchorToggles = document.querySelectorAll('#sidebar a.toggle');
+    var sidebarCategorys = document.querySelectorAll('#sidebar .chapter-item > div');
+
 
     function toggleSection(ev) {
         ev.currentTarget.parentElement.classList.toggle('expanded');
     }
 
     Array.from(sidebarAnchorToggles).forEach(function (el) {
+        el.addEventListener('click', toggleSection);
+    });
+    Array.from(sidebarCategorys).forEach(function (el) {
         el.addEventListener('click', toggleSection);
     });
 
@@ -614,7 +621,7 @@ function playground_text(playground, hidden = true) {
     });
 })();
 
-(function scrollToTop () {
+(function scrollToTop() {
     var menuTitle = document.querySelector('.menu-title');
 
     menuTitle.addEventListener('click', function () {

@@ -1,7 +1,7 @@
 # Summary
 
 [About](./about.md)
-- [Cheatsheet](./cheatsheet.md)
+- [Cheatsheet]()
     - [Shell](./cheatsheet/shell.md)
     - [English](./cheatsheet/english.md)
     - [NATS](./cheatsheet/nats.md)

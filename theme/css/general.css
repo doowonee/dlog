@@ -17,7 +17,7 @@ html {
 
 body {
     margin: 0;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     overflow-x: hidden;
 }
 
@@ -275,4 +275,15 @@ kbd {
     margin-right: auto;
     max-width: var(--content-max-width);
     padding-bottom: 1rem;
+}
+
+/* category */
+#sidebar .chapter-item>div {
+    width: 100%;
+    color: var(--fg);
+    cursor: pointer;
+}
+
+#sidebar .chapter-item>div:hover {
+    color: var(--sidebar-active);
 }
