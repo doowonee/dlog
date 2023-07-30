@@ -5,10 +5,11 @@
 html {
     scrollbar-color: var(--scrollbar) var(--bg);
 }
+
 #searchresults a,
 .content a:link,
 a:visited,
-a > .hljs {
+a>.hljs {
     color: var(--links);
 }
 
@@ -32,6 +33,7 @@ a > .hljs {
     z-index: 101;
     margin: auto calc(0px - var(--page-padding));
 }
+
 #menu-bar {
     position: relative;
     display: flex;
@@ -41,24 +43,29 @@ a > .hljs {
     border-bottom-width: 1px;
     border-bottom-style: solid;
 }
+
 #menu-bar.sticky,
-.js #menu-bar-hover-placeholder:hover + #menu-bar,
+.js #menu-bar-hover-placeholder:hover+#menu-bar,
 .js #menu-bar:hover,
 .js.sidebar-visible #menu-bar {
     position: -webkit-sticky;
     position: sticky;
     top: 0 !important;
 }
+
 #menu-bar-hover-placeholder {
     position: sticky;
     position: -webkit-sticky;
     top: 0;
     height: var(--menu-bar-height);
 }
+
 #menu-bar.bordered {
     border-bottom-color: var(--table-border-color);
 }
-#menu-bar i, #menu-bar .icon-button {
+
+#menu-bar i,
+#menu-bar .icon-button {
     position: relative;
     padding: 0 8px;
     z-index: 10;
@@ -66,8 +73,11 @@ a > .hljs {
     cursor: pointer;
     transition: color 0.5s;
 }
+
 @media only screen and (max-width: 420px) {
-    #menu-bar i, #menu-bar .icon-button {
+
+    #menu-bar i,
+    #menu-bar .icon-button {
         padding: 0 5px;
     }
 }
@@ -78,6 +88,7 @@ a > .hljs {
     padding: 0;
     color: inherit;
 }
+
 .icon-button i {
     margin: 0;
 }
@@ -85,6 +96,7 @@ a > .hljs {
 .right-buttons {
     margin: 0 15px;
 }
+
 .right-buttons a {
     text-decoration: none;
 }
@@ -93,6 +105,7 @@ a > .hljs {
     display: flex;
     margin: 0 5px;
 }
+
 .no-js .left-buttons {
     display: none;
 }
@@ -109,6 +122,7 @@ a > .hljs {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .js .menu-title {
     cursor: pointer;
 }
@@ -183,36 +197,47 @@ a > .hljs {
 }
 
 @media only screen and (max-width: 1080px) {
-    .nav-wide-wrapper { display: none; }
-    .nav-wrapper { display: block; }
+    .nav-wide-wrapper {
+        display: none;
+    }
+
+    .nav-wrapper {
+        display: block;
+    }
 }
 
 @media only screen and (max-width: 1380px) {
-    .sidebar-visible .nav-wide-wrapper { display: none; }
-    .sidebar-visible .nav-wrapper { display: block; }
+    .sidebar-visible .nav-wide-wrapper {
+        display: none;
+    }
+
+    .sidebar-visible .nav-wrapper {
+        display: block;
+    }
 }
 
 /* Inline code */
 
-:not(pre) > .hljs {
+:not(pre)>.hljs {
     display: inline;
     padding: 0.1em 0.3em;
     border-radius: 3px;
 }
 
-:not(pre):not(a) > .hljs {
+:not(pre):not(a)>.hljs {
     color: var(--inline-code-color);
     overflow-x: initial;
 }
 
-a:hover > .hljs {
+a:hover>.hljs {
     text-decoration: underline;
 }
 
 pre {
     position: relative;
 }
-pre > .buttons {
+
+pre>.buttons {
     position: absolute;
     z-index: 100;
     right: 0px;
@@ -226,19 +251,23 @@ pre > .buttons {
     opacity: 0;
     transition: visibility 0.1s linear, opacity 0.1s linear;
 }
-pre:hover > .buttons {
+
+pre:hover>.buttons {
     visibility: visible;
     opacity: 1
 }
-pre > .buttons :hover {
+
+pre>.buttons :hover {
     color: var(--sidebar-active);
     border-color: var(--icons-hover);
     background-color: var(--theme-hover);
 }
-pre > .buttons i {
+
+pre>.buttons i {
     margin-left: 8px;
 }
-pre > .buttons button {
+
+pre>.buttons button {
     cursor: inherit;
     margin: 0px 5px;
     padding: 3px 5px;
@@ -250,16 +279,18 @@ pre > .buttons button {
     border-color: var(--icons);
     background-color: var(--theme-popup-bg);
     transition: 100ms;
-    transition-property: color,border-color,background-color;
+    transition-property: color, border-color, background-color;
     color: var(--icons);
 }
+
 @media (pointer: coarse) {
-    pre > .buttons button {
+    pre>.buttons button {
         /* On mobile, make it easier to tap buttons. */
         padding: 0.3rem 1rem;
     }
 }
-pre > code {
+
+pre>code {
     padding: 1rem;
 }
 
@@ -269,10 +300,10 @@ pre > code {
    wrapper), but that would require fixing a whole bunch of CSS rules.
 */
 .hljs.ace_editor {
-  padding: 0rem 0rem;
+    padding: 0rem 0rem;
 }
 
-pre > .result {
+pre>.result {
     margin-top: 10px;
 }
 
@@ -292,7 +323,7 @@ mark {
 }
 
 mark.fade-out {
-    background-color: rgba(0,0,0,0) !important;
+    background-color: rgba(0, 0, 0, 0) !important;
     cursor: auto;
 }
 
@@ -312,6 +343,7 @@ mark.fade-out {
     background-color: var(--searchbar-bg);
     color: var(--searchbar-fg);
 }
+
 #searchbar:focus,
 #searchbar.active {
     box-shadow: 0 0 3px var(--searchbar-shadow-color);
@@ -335,20 +367,24 @@ ul#searchresults {
     list-style: none;
     padding-left: 20px;
 }
+
 ul#searchresults li {
     margin: 10px 0px;
     padding: 2px;
     border-radius: 2px;
 }
+
 ul#searchresults li.focus {
     background-color: var(--searchresults-li-bg);
 }
+
 ul#searchresults span.teaser {
     display: block;
     clear: both;
     margin: 5px 0 0 20px;
     font-size: 0.8em;
 }
+
 ul#searchresults span.teaser em {
     font-weight: bold;
     font-style: normal;
@@ -369,18 +405,23 @@ ul#searchresults span.teaser em {
     background-color: var(--sidebar-bg);
     color: var(--sidebar-fg);
 }
+
 .sidebar-resizing {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
+
 .js:not(.sidebar-resizing) .sidebar {
-    transition: transform 0.3s; /* Animation: slide away */
+    transition: transform 0.3s;
+    /* Animation: slide away */
 }
+
 .sidebar code {
     line-height: 2em;
 }
+
 .sidebar .sidebar-scrollbox {
     overflow-y: auto;
     position: absolute;
@@ -390,6 +431,7 @@ ul#searchresults span.teaser em {
     right: 0;
     padding: 10px 10px;
 }
+
 .sidebar .sidebar-resize-handle {
     position: absolute;
     cursor: col-resize;
@@ -398,16 +440,20 @@ ul#searchresults span.teaser em {
     top: 0;
     bottom: 0;
 }
+
 .js .sidebar .sidebar-resize-handle {
     cursor: col-resize;
     width: 5px;
 }
+
 .sidebar-hidden .sidebar {
     transform: translateX(calc(0px - var(--sidebar-width)));
 }
+
 .sidebar::-webkit-scrollbar {
     background: var(--sidebar-bg);
 }
+
 .sidebar::-webkit-scrollbar-thumb {
     background: var(--scrollbar);
 }
@@ -415,6 +461,7 @@ ul#searchresults span.teaser em {
 .sidebar-visible .page-wrapper {
     transform: translateX(var(--sidebar-width));
 }
+
 @media only screen and (min-width: 620px) {
     .sidebar-visible .page-wrapper {
         transform: none;
@@ -436,6 +483,7 @@ ul#searchresults span.teaser em {
     display: flex;
     color: var(--sidebar-non-existant);
 }
+
 .chapter li a {
     display: block;
     padding: 0;
@@ -451,7 +499,7 @@ ul#searchresults span.teaser em {
     color: var(--sidebar-active);
 }
 
-.chapter li > a.toggle {
+.chapter li>a.toggle {
     cursor: pointer;
     display: block;
     margin-left: auto;
@@ -460,12 +508,12 @@ ul#searchresults span.teaser em {
     opacity: 0.68;
 }
 
-.chapter li > a.toggle div {
+.chapter li>a.toggle div {
     transition: transform 0.5s;
 }
 
 /* collapse the section */
-.chapter li:not(.expanded) + li > ol {
+.chapter li:not(.expanded)+li>ol {
     display: none;
 }
 
@@ -474,7 +522,7 @@ ul#searchresults span.teaser em {
     margin-top: 0.6em;
 }
 
-.chapter li.expanded > a.toggle div {
+.chapter li.expanded>a.toggle div {
     transform: rotate(90deg);
 }
 
@@ -483,13 +531,20 @@ ul#searchresults span.teaser em {
     height: 3px;
     margin: 5px 0px;
 }
+
 .chapter .spacer {
     background-color: var(--sidebar-spacer);
 }
 
-@media (-moz-touch-enabled: 1), (pointer: coarse) {
-    .chapter li a { padding: 5px 0; }
-    .spacer { margin: 10px 0; }
+@media (-moz-touch-enabled: 1),
+(pointer: coarse) {
+    .chapter li a {
+        padding: 5px 0;
+    }
+
+    .spacer {
+        margin: 10px 0;
+    }
 }
 
 .section {
@@ -502,7 +557,7 @@ ul#searchresults span.teaser em {
 
 .theme-popup {
     position: absolute;
-    left: 10px;
+    right: 10px;
     top: var(--menu-bar-height);
     z-index: 1000;
     border-radius: 4px;
@@ -517,9 +572,11 @@ ul#searchresults span.teaser em {
     /* Don't let the children's background extend past the rounded corners. */
     overflow: hidden;
 }
+
 .theme-popup .default {
     color: var(--icons);
 }
+
 .theme-popup .theme {
     width: 100%;
     border: 0;
@@ -533,6 +590,7 @@ ul#searchresults span.teaser em {
     background: inherit;
     font-size: inherit;
 }
+
 .theme-popup .theme:hover {
     background-color: var(--theme-hover);
 }
