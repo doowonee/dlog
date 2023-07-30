@@ -1,5 +1,7 @@
 # About me
 
+![profile image](i/profile.png)
+
 - Work as a software engineer since 2017
 - Rust 만능주의자 (Rustacean)
 
