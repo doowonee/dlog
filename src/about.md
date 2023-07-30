@@ -1,4 +1,4 @@
-# About me
+# About Doowonee
 
 ![profile image](i/profile.png)
 
