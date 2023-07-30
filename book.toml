@@ -12,6 +12,7 @@ preferred-dark-theme = "coal"
 no-section-label = true
 git-repository-url = "https://github.com/doowonee/dlog"
 git-repository-icon = "fa-github"
+input-404 = "not-found.md"
 
 [output.html.fold]
 enable = true
