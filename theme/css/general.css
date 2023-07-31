@@ -287,3 +287,8 @@ kbd {
 #sidebar .chapter-item>div:hover {
     color: var(--sidebar-active);
 }
+
+/* category 영역 전부 click 영역 */
+.chapter-item>a:not(.toggle) {
+    width: 100%;
+}
