@@ -9,3 +9,7 @@
 <https://docs.rs/nats/latest/nats/jetstream/enum.AckKind.html> rust client
 
 <https://docs.nats.io/nats-concepts/jetstream/consumers> consumer 사용법
+
+<https://docs.nats.io/reference/faq#what-is-the-right-kind-of-stream-consumer-to-use>
+
+<https://natsbyexample.com/examples/jetstream/pull-consumer/rust>

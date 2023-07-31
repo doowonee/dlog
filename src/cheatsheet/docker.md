@@ -16,7 +16,7 @@ sudo du -h $(docker inspect --format='{{.LogPath}}' $(docker ps -qa))
 
 ## Docker registry
 
-docker custom registry 쓰면 인증 서버 재부팅 해도 인증 정보 ~/.docker/config.json 정보는 expired 안된다 그대로 사용 가능함 그냥 비밀번호를 암호화해서 파일로 저장하는거라함
+docker custom registry 쓰면 인증 서버 재부팅 해도 인증 정보 `~/.docker/config.json` 정보는 expired 안된다 그대로 사용 가능함 그냥 비밀번호를 암호화해서 파일로 저장하는거라함
 
 ## ENTRYPOINT VS CMD
 
