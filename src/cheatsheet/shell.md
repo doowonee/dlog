@@ -80,15 +80,14 @@ git branch | grep "<pattern>" | xargs git branch -D
 awk 'length > max_length { max_length = length; longest_line = $0 } END { print longest_line }' ./file.log
 
 # save stdout with stderror
-# 실행 결좌를 파일로 저장
+# 실행 stdout를 파일로 저장
 cargo run -p payment --example m3_2254 |& tee run.log 
 
 # remove terminal color
 # 터미널 색상 코드 제거
 sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"
 
-# get infomation from aws instance metadata
-# EC2 정보 읽어오기
+# EC2 instance ID 조회하기 AWS EC2에서만 동작
 curl -s http://169.254.169.254/latest/meta-data/instance-id
 
 # make file size zero
@@ -96,7 +95,7 @@ curl -s http://169.254.169.254/latest/meta-data/instance-id
 truncate -s 0 /var/lib/docker/containers/**/*-json.log
 ```
 
-## disk 관리
+## linux disk management
 
 ```bash
 sudo lsblk -f
@@ -124,8 +123,8 @@ sudo blkid
 
 # /etc/fstab에 아래 행 추가해서 재부팅해도 자동으로 마운트 되도록 설정
 # defaults는 https://wiki.debian.org/fstab 참고
-UUID=9cd1fc7b-46dd-4833-909b-9f9bb9cd2f9e /hot-data  ext4 defaults,nofail  0  2
-UUID=84464544-0fdc-4968-a7b4-cf675edb5000 /cold-data  ext4 defaults,nofail  0  3
+UUID=9cd1fc7b-1423-4833-909b-9f9119cd2f9e /hot-data  ext4 defaults,nofail  0  2
+UUID=84464544-0f11-4968-a79b-cf675edb5000 /cold-data  ext4 defaults,nofail  0  3
 
 # fstab 변경한 설정이 잘되나 확인 
 # 참고로 현재 워킹 디렉토리에 들어 간채로 umount 하면 busy라고 안된다 다른 디렉토리로 이동 하고 해야 한다
