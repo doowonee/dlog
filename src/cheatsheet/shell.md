@@ -95,3 +95,39 @@ curl -s http://169.254.169.254/latest/meta-data/instance-id
 # 파일 내용 비우기
 truncate -s 0 /var/lib/docker/containers/**/*-json.log
 ```
+
+## disk 관리
+
+```bash
+sudo lsblk -f
+
+# hot storage
+sudo file -s /dev/nvme1n1
+sudo mkfs -t ext4 /dev/nvme1n1
+sudo mkdir /hot-data 
+sudo mount /dev/nvme1n1 /hot-data
+sudo chown -R ubuntu:ubuntu /hot-data
+
+# cold storage
+# 데이터 용량이 클수록 mkfs가 오래 걸린다 2TB면 1시간 걸린다는데?ㄷ
+sudo file -s /dev/nvme2n1
+sudo mkfs -t ext4 /dev/nvme2n1
+sudo mkdir /cold-data
+sudo mount /dev/nvme2n1 /cold-data
+sudo chown -R ubuntu:ubuntu /cold-data
+
+# UUID 확인
+sudo blkid
+
+# 32GB 할당 했는데 30G 사용 가능이고  256GB 할당 했는데 239G 사용 가능 무엇?
+# 이유는 https://askubuntu.com/questions/79981/df-h-shows-incorrect-free-space 참고
+
+# /etc/fstab에 아래 행 추가해서 재부팅해도 자동으로 마운트 되도록 설정
+# defaults는 https://wiki.debian.org/fstab 참고
+UUID=9cd1fc7b-46dd-4833-909b-9f9bb9cd2f9e /hot-data  ext4 defaults,nofail  0  2
+UUID=84464544-0fdc-4968-a7b4-cf675edb5000 /cold-data  ext4 defaults,nofail  0  3
+
+# fstab 변경한 설정이 잘되나 확인 
+# 참고로 현재 워킹 디렉토리에 들어 간채로 umount 하면 busy라고 안된다 다른 디렉토리로 이동 하고 해야 한다
+sudo umount /cold-data && sudo umount /hot-data && sudo mount -a
+```

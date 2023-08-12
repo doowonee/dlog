@@ -12,6 +12,17 @@ docker rm -f  $(docker ps -a --format '{{.Names}}' | grep name_what_i_want)
 
 # 모든 컨테이너 로그 파일 사이즈 출력
 sudo du -h $(docker inspect --format='{{.LogPath}}' $(docker ps -qa))
+
+# 컨테이너 안으로 호스트 파일 복사
+sudo docker cp something.zip contaier_name:/
+
+# 주로 쓰는 옵션
+sudo docker run -d --name something \
+  --network host \
+  --restart always \
+  --log-driver json-file --log-opt max-size=1g \
+  executable
+  image
 ```
 
 ## Docker registry
