@@ -1,0 +1,495 @@
+<!DOCTYPE HTML>
+<html lang="ko" class="sidebar-visible no-js coal">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>Elasticsearch - Doowonee</title>
+
+
+    <!-- Custom HTML head -->
+    
+    <meta name="description" content="My peronal blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="shortcut icon" href="../favicon.png">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/chrome.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" href="../highlight.css">
+    <link rel="stylesheet" href="../tomorrow-night.css">
+    <link rel="stylesheet" href="../ayu-highlight.css">
+
+    <!-- Custom theme stylesheets -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM5E04QY7L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XM5E04QY7L');
+    </script>
+    <script src="https://giscus.app/client.js" data-repo="doowonee/dlog" data-repo-id="R_kgDOJ-tOtg"
+        data-category="Announcements" data-category-id="DIC_kwDOJ-tOts4CYOGk" data-mapping="pathname" data-strict="0"
+        data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark_dimmed"
+        data-lang="ko" data-loading="lazy" crossorigin="anonymous" async>
+        </script>
+</head>
+
+<body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../about.html">About</a></li><li class="chapter-item expanded "><div>Cheatsheet</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../cheatsheet/shell.html">Shell</a></li><li class="chapter-item "><a href="../cheatsheet/english.html">English</a></li><li class="chapter-item "><a href="../cheatsheet/docker.html">Docker</a></li><li class="chapter-item "><a href="../cheatsheet/nats.html">NATS</a></li><li class="chapter-item "><a href="../cheatsheet/mongodb.html">MongoDB</a></li><li class="chapter-item expanded "><a href="../cheatsheet/elasticsearch.html" class="active">Elasticsearch</a></li><li class="chapter-item "><a href="../cheatsheet/clickhouse.html">Clickhouse</a></li><li class="chapter-item "><a href="../cheatsheet/postgresql.html">PostgreSQL</a></li><li class="chapter-item "><a href="../cheatsheet/kafka.html">Kafka</a></li><li class="chapter-item "><a href="../cheatsheet/redis.html">Redis</a></li></ol></li><li class="chapter-item "><a href="../post/1.html">Scheduling system design</a></li><li class="spacer"></li><li class="chapter-item affix "><li class="part-title">doowonee.com@gmail.com</li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
+                            aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Doowonee</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/doowonee/dlog" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="검색은 영어만 가능 (only English)"
+                            aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="elasticsearch"><a class="header" href="#elasticsearch">Elasticsearch</a></h1>
+<p>JVM 힙 사이즈는 건들지 말라길래 그냥 기동함 어짜피 리소스 단독으로 es가 다 사용할태니 무방함.</p>
+<pre><code class="language-bash"># 이거 설정 안하면 서버 실행 준비 과정에서 죽음 sudo sysctl -p 하면 재부팅 안해도 됌
+sudo vi /etc/sysctl.conf
+vm.max_map_count=262144
+
+# 데이터 노드 node.name IP 변경 주의
+sudo docker run -d --name elasticsearch \
+  --network host \
+  --restart always \
+  --log-driver json-file --log-opt max-size=1g \
+  -e &quot;cluster.name=cluster_name&quot; \
+  -e &quot;cluster.initial_master_nodes=172.20.1.1,172.20.2.2,172.20.3.3&quot; \
+  -e &quot;node.name=172.20.1.1&quot; \
+  -e &quot;discovery.seed_hosts=172.20.1.1,172.20.2.2,172.20.3.3&quot; \
+  -e &quot;bootstrap.memory_lock: true&quot; \
+  -e &quot;network.host=_site_&quot; \
+  -e &quot;node.ingest=false&quot; \
+  -v /home/ubuntu/data:/usr/share/elasticsearch/data \
+  docker.elastic.co/elasticsearch/elasticsearch:7.16.3
+sudo docker cp es_plugin.zip elasticsearch:/
+sudo docker exec elasticsearch bin/elasticsearch-plugin install file:///es_plugin.zip
+sudo docker restart elasticsearch
+sudo docker logs -f elasticsearch
+
+# 키바나 log 나올떄 까지 시간 좀 걸림 한 2분 정도
+# ES랑 같은 버전 이어야함
+# ELASTICSEARCH_HOSTS , 이후 띄어쓰기 하면 안됌
+sudo docker stop kibana
+sudo docker rm -f kibana
+sudo docker run -d --name kibana \
+  --network=host \
+  --log-driver json-file --log-opt max-size=1g \
+  -e 'ELASTICSEARCH_HOSTS=[&quot;http://172.20.1.1:9200&quot;,&quot;http://172.20.2.2:9200&quot;,&quot;http://172.20.3.3:9200&quot;]' \
+  docker.elastic.co/kibana/kibana:7.16.3
+sudo docker logs -f kibana
+
+# 코디네이터 노드 node.name IP 변경 주의
+# 마스터는 데이터 노드만 지정 코디네이터 노드는 ingestion만 하게 설정
+sudo docker stop elasticsearch
+sudo docker rm -f elasticsearch
+sudo docker run -d --name elasticsearch \
+  --network host \
+  --log-driver json-file --log-opt max-size=1g \
+  -e &quot;cluster.name=cluster_name&quot; \
+  -e &quot;cluster.initial_master_nodes=172.20.1.1,172.20.2.2,172.20.3.3&quot; \
+  -e &quot;node.name=172.20.5.5&quot; \
+  -e &quot;discovery.seed_hosts=172.20.1.1,172.20.2.2,172.20.3.3&quot; \
+  -e &quot;bootstrap.memory_lock: true&quot; \
+  -e &quot;network.host=_site_&quot; \
+  -e &quot;node.master=false&quot; -e &quot;node.data=false&quot; \
+  -v /home/ubuntu/data:/usr/share/elasticsearch/data \
+  docker.elastic.co/elasticsearch/elasticsearch:7.16.3
+sudo docker cp es_plugin.zip elasticsearch:/
+sudo docker exec elasticsearch bin/elasticsearch-plugin install file:///es_plugin.zip
+sudo docker restart elasticsearch
+sudo docker logs -f elasticsearch
+</code></pre>
+<h2 id="클러스터-사용시-검색-결과는-매번-달라진다"><a class="header" href="#클러스터-사용시-검색-결과는-매번-달라진다">클러스터 사용시 검색 결과는 매번 달라진다</a></h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/consistent-scoring.html">문서</a>를 보면 ES는 replica shard로 분산 검색을 할수있는데 이때 샤드마다 인덱싱 순서가 다를수 있으므로 score가 달라지고 그에 따라 검색 결과들의 순서가 달라질수 있다. 즉 페이징시 1번 페이지에 있던게 2번 페이지에도 있을수 있다는거다. 이걸 해결하려면 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/search-search.html#search-preference">preference</a>를 사용하면 된다.</p>
+<h2 id="exit-code-with-137"><a class="header" href="#exit-code-with-137">exit code with 137</a></h2>
+<p><code>sudo dmesg | less</code> 입력후 <code>Out of memory</code> 검색 해보면 알수있듯이 메모리가 부족해서 OS가 컨테이너를 종료 시켜 버린다. 남는 메모리가 1.5 기가라 그런거 같은데 최소 4기가의 여유분은 되어야 하는것으로 보인다. 그래서 일단 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.x/advanced-configuration.html#set-jvm-options">강제로 JVM 옵션</a>을 지정해서 최대 2기가만 사용하도록 지정하였다. 기존 ES data를 사제하지 않고 그대로 기동 해도 된다. EC2 인스턴스도 2기가 짜리인 t3.small 에서 4기가 짜리인 t3.medium으로 변경 하였다.</p>
+<h2 id="mapping-팁"><a class="header" href="#mapping-팁">mapping 팁</a></h2>
+<p><code>enabled</code> 옵션은 인덱싱은 제외 하되 검색 결과에 <code>_source</code>에는 데이터가 존재 하도록 하는 옵션이라 인덱싱 성능을 올리고 인덱싱 대상 데이터를 줄여 최적화 할수 있지만 해당 필드에 대해서 <code>exists</code> 쿼리를 사용할수 없는 단점이 존재 한다.</p>
+<p><code>date</code> 필드는 기본이 <code>strict_date_optional_time</code>를 사용하는데 <code>yyyy-MM-ddTHH:mm:ss.SSSZ</code>, <code>yyyy-MM-dd</code> 형식을 지원 한다.</p>
+<h2 id="analyzer"><a class="header" href="#analyzer">analyzer</a></h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/analyzer-anatomy.html">analyzer</a> 구성요소</p>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/analysis-charfilters.html">Character filter</a></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/analysis-tokenizers.html">Tokenizer</a></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/analysis-tokenfilters.html">Token filter</a></li>
+</ul>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-lang-analyzer.html#cjk-analyzer">https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-lang-analyzer.html#cjk-analyzer</a>를 보면 기본적으로 제공해주는 tokenizer와 token filter를 조합해서 언어 별로 적절한 analyzer 구성 방법이 서술되어있다.</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/analysis-tokenizers.html">tokenizer</a>와 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/analysis-tokenfilters.html">token filter</a>의 차이점은 전자는 문자열 스트림을 받아 token화 하는것인데 보통 단어 단위로 하게 된다. 그리고 필터는 이 <code>token</code>을 받아 수정 하거나 가공 하는 후 처리 작업인데 n-gram을 예로 min과 max를 2로 설정한 <code>tokenizer</code>만 사용하고 filter는 아무 옵션을 주지 않는다면 한글자만 검색자체가 안된다. 왜냐면 최소 2글자씩 tokenizing 되는데 1글자 이기 때문에 아예 무시가 된다는것이다. 하지만 <code>tokenzier</code>는 standard로 사용하고 filter를 통해 n-gram을 적용해주면 1글자 토큰도 사용할수 있게 된다.</p>
+<p><code>edge_ngram</code>는 문자열 처음부터 단순 최대 몇글자 까지 매칭 되는것이라 Ngram보다는 빠르다 또한 이때 띄어쓰기가 포함되면 단어로 나누어 지기떄문에 한국어나 영어에는 적합하지만 일본어에는 부적합 하다. 일본어 14글자가 띄어 쓰기가 없을 경우 <code>max_gram</code>: 10 이라면 뒤에 4글자는 검색이 되지 않는다. 때문에 <a href="https://www.elastic.co/kr/blog/how-to-implement-japanese-full-text-search-in-elasticsearch">https://www.elastic.co/kr/blog/how-to-implement-japanese-full-text-search-in-elasticsearch</a>를 보다시피 일본어는 무조건 <code>Ngram</code> tokenizer를 사용해야 한다. 단 한국어일때도 띄어쓰기가 잘못 되어있다면 <code>ndge_ngram</code>으로 검색이 안되는 경우가 많을수있다. 예를들어 검색어는 <code>가수</code>인데 인덱싱된 단어는 <code>고전가수</code>일 경우이는 검색 결과에 나오지 않는다.</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/analysis-stemmer-tokenfilter.html">stemmer</a>는 알파벳 기반언어 특성을 이용해서 알고리즘으로 토큰을 어근, 어간등으로 분리하는 필터이다. <a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/analysis-keyword-marker-tokenfilter.html">keyword_marker</a>는 분리 대상에서 제외 하는 목록을 관리하는 필터이다.</p>
+<p>기존꺼 보니까 mapping 할때 선언 하면 검색 할때 tokenizing을 알아서 하는줄 알았더니 그게 아니었어 인덱싱은 custom analyzer로 하지만 검색할때는 적용한 커스텀 아날라이저를 사용하지 않고 standard analyzer 를 사용하게 된다 그래서 아래 처럼 검색 쿼리에 명시적으로 analyzer를 지정 해주면 된다.</p>
+<pre><code class="language-json">GET /index_name/_search
+{
+  &quot;explain&quot;: true, 
+  &quot;query&quot;: {
+    &quot;match&quot;: {
+      &quot;title&quot;: {
+        &quot;query&quot;: &quot;search word&quot;,
+        &quot;analyzer&quot;: &quot;custom_analyzer&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<h2 id="remote-reindexing"><a class="header" href="#remote-reindexing">remote reindexing</a></h2>
+<p>리인덱싱으로 데이터를 받고자 하는 서버에 <code>config/elasticsearch.yaml</code> 파일에 <code>reindex.remote.whitelist: &quot;172.30.9.9:9200&quot;</code> 설정을 추가 한후 재기동 하고 아래의 쿼리를 실행 하면 된다. 로컬은 remote 없이 인덱스 이름만 사용 하면 된다.</p>
+<pre><code class="language-json">POST _reindex?wait_for_completion=false
+{
+  &quot;source&quot;: {
+    &quot;remote&quot;: {
+      &quot;host&quot;: &quot;http://172.30.9.9:9200&quot;
+    },
+    &quot;index&quot;: &quot;some_index&quot;,
+  },
+  &quot;dest&quot;: {
+    &quot;index&quot;: &quot;some_index&quot;
+  }
+}
+</code></pre>
+<p>실행하면 기다리지 않고 바로 task 정보가 반환 되는데 <code>GET _tasks/X9QMQfjYT8KK01OSOFM6NA:45</code>로 리인덱싱 얼만큼 해야하고 얼만큼 했는지 시간이랑 그 결과 계속 조회 가능함</p>
+<h2 id="elasticdump"><a class="header" href="#elasticdump">elasticdump</a></h2>
+<p>elastic search 데이터 export 유틸 사용법</p>
+<pre><code class="language-bash"># npm install -g elasticdump
+#  raw data export 방법으로 json each row 형태로 뽑아 지게 된다
+# 근데 왜 range인데 gte 아닌 애들도 탐색이 되지? 흠 숫자로 취급을 안하고 문자열로 취급해서 그런걸 수도 있다는데
+elasticdump \
+  --input=http://172.20.1.1:9200/index_name \
+  --output=&quot;search_log.json_row&quot; \
+  --limit=10000 \
+  --searchBody=&quot;{  \&quot;_source\&quot;: [ \&quot;title\&quot;,\&quot;date\&quot; ],  \&quot;query\&quot;: {      \&quot;range\&quot;: {      \&quot;date\&quot;: {\&quot;gte\&quot;: 16606060, \&quot;lt\&quot;: 16706060   }    }  }}&quot;
+
+# elastic-dump로 export한 json each row를 csv로 변환 하는법
+jq -s '.' search_log.json_row &gt; out.json
+jq --raw-output '.[] | ._source.meta | [.date, .title] | @csv' out.json &gt; out.csv
+</code></pre>
+<h2 id="버전-업그레이드"><a class="header" href="#버전-업그레이드">버전 업그레이드</a></h2>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/rolling-upgrades.html</a>를 보면 클러스터 무중단으로 업그레이드가 가능한데 메이저 버전이 같으면 데이터 마이그레이션 없이 컨테이너만 새로 기동 해서 업그레이드 가능하다. 단 주의 할점은 업그레이드 후 <code>cluster.routing.allocation.enable</code> 설정 원복 안하면 키바나 기동 안되고 데이터 노드 재기동 해도 인덱스들 리밸런싱도 안된다. 또한 ES plugin도 새로운 버전에 맞게 다시 패키징 해야 한다.</p>
+<h2 id="쿼리-노트"><a class="header" href="#쿼리-노트">쿼리 노트</a></h2>
+<pre><code class="language-javascript">// tasks 출력
+GET _tasks
+
+// 인덱스 목록
+GET _cat/indices?v
+
+// alias 목록
+GET _cat/aliases?v
+
+// alias 지정
+POST /_aliases
+{
+  &quot;actions&quot; : [
+    { &quot;add&quot; : { &quot;index&quot; : &quot;i1&quot;, &quot;alias&quot; : &quot;i&quot; } },
+    { &quot;remove&quot; : { &quot;index&quot; : &quot;i1&quot;, &quot;alias&quot; : &quot;i&quot; } },
+    { &quot;add&quot; : { &quot;index&quot; : &quot;i2&quot;, &quot;alias&quot; : &quot;i&quot; } }
+  ]
+}
+
+// 검색 결과 score외에 조건으로 수동 정렬
+GET index_name/_search
+{
+  &quot;sort&quot;: [
+    {
+      &quot;broad_dt&quot;: {
+        &quot;order&quot;: &quot;desc&quot;
+      }
+    },
+    {
+      &quot;_score&quot;: {
+        &quot;order&quot;: &quot;desc&quot;
+      }
+    }
+  ], 
+  &quot;size&quot;: &quot;15&quot;,
+  &quot;from&quot;: 0,
+  &quot;query&quot;: {
+      &quot;function_score&quot;: {
+        &quot;query&quot;: {
+          &quot;bool&quot;: {
+            &quot;filter&quot;: [
+              {
+                &quot;match&quot;: {
+                  &quot;is_active&quot;: true
+                }
+              },
+              {
+                &quot;match&quot;: {
+                  &quot;is_show&quot;: true
+                }
+              }
+            ],
+            &quot;should&quot;: [
+              {
+                &quot;term&quot;: {
+                  &quot;title&quot;: {
+                    &quot;value&quot;: &quot;bts&quot;
+                  }
+                }
+              }
+            ],
+            &quot;minimum_should_match&quot;: 1
+          }
+        },
+        &quot;functions&quot;: [
+          {
+            &quot;gauss&quot;: {
+              &quot;broad_dt&quot;: {
+                &quot;scale&quot;: &quot;90d&quot;,
+                &quot;offset&quot;: &quot;15d&quot;,
+                &quot;decay&quot;: 0.1
+              }
+            }
+          }
+        ],
+        &quot;score_mode&quot;: &quot;multiply&quot;,
+        &quot;boost_mode&quot;: &quot;multiply&quot;
+      }
+    }
+}
+
+// 데이터 수정
+POST intex_name/_update/doc_id
+{
+  &quot;doc&quot;: {
+    &quot;meta&quot;: {
+      &quot;flag.isuse&quot;: false,
+      &quot;parer&quot; : {
+        &quot;show&quot; : false
+      }
+    }
+  }
+}
+
+// 랭킹 추출
+GET /index_name/_search
+{
+  &quot;query&quot;: {
+      &quot;range&quot;: {
+      &quot;broad_at&quot;: {
+          &quot;gte&quot;: 100,
+          &quot;lte&quot;: 500
+      }
+    }
+  },
+  &quot;aggs&quot;: {
+    &quot;ranking&quot;: {
+        &quot;terms&quot;: {
+            &quot;size&quot;: 50,
+            &quot;field&quot;: &quot;title&quot;
+        }
+    }
+  }
+}
+
+// 쿼리로 데이터 삽입
+POST index_name/_doc/22293923
+{
+  &quot;sid&quot;: {
+    &quot;id&quot;: &quot;22293923&quot;
+  },
+  &quot;d&quot;: {
+    &quot;code&quot;: {
+      &quot;type&quot;: &quot;somt&quot;,
+      &quot;content_type&quot;: 1
+    },
+    &quot;title&quot;: &quot;some_title&quot;
+  }
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <a rel="prev" href="../cheatsheet/mongodb.html" class="mobile-nav-chapters previous"
+                            title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+
+                        <a rel="next" href="../cheatsheet/clickhouse.html" class="mobile-nav-chapters next"
+                            title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+                <div class="giscus"></div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                <a rel="prev" href="../cheatsheet/mongodb.html" class="nav-chapters previous" title="Previous chapter"
+                    aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+
+                <a rel="next" href="../cheatsheet/clickhouse.html" class="nav-chapters next" title="Next chapter"
+                    aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+</body>
+
+</html>

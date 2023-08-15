@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html lang="ko" class="sidebar-visible no-js coal">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>MongoDB - Doowonee</title>
+
+
+    <!-- Custom HTML head -->
+    
+    <meta name="description" content="My peronal blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="shortcut icon" href="../favicon.png">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/chrome.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" href="../highlight.css">
+    <link rel="stylesheet" href="../tomorrow-night.css">
+    <link rel="stylesheet" href="../ayu-highlight.css">
+
+    <!-- Custom theme stylesheets -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XM5E04QY7L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-XM5E04QY7L');
+    </script>
+    <script src="https://giscus.app/client.js" data-repo="doowonee/dlog" data-repo-id="R_kgDOJ-tOtg"
+        data-category="Announcements" data-category-id="DIC_kwDOJ-tOts4CYOGk" data-mapping="pathname" data-strict="0"
+        data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark_dimmed"
+        data-lang="ko" data-loading="lazy" crossorigin="anonymous" async>
+        </script>
+</head>
+
+<body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><a href="../about.html">About</a></li><li class="chapter-item expanded "><div>Cheatsheet</div><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../cheatsheet/shell.html">Shell</a></li><li class="chapter-item "><a href="../cheatsheet/english.html">English</a></li><li class="chapter-item "><a href="../cheatsheet/docker.html">Docker</a></li><li class="chapter-item "><a href="../cheatsheet/nats.html">NATS</a></li><li class="chapter-item expanded "><a href="../cheatsheet/mongodb.html" class="active">MongoDB</a></li><li class="chapter-item "><a href="../cheatsheet/elasticsearch.html">Elasticsearch</a></li><li class="chapter-item "><a href="../cheatsheet/clickhouse.html">Clickhouse</a></li><li class="chapter-item "><a href="../cheatsheet/postgresql.html">PostgreSQL</a></li><li class="chapter-item "><a href="../cheatsheet/kafka.html">Kafka</a></li><li class="chapter-item "><a href="../cheatsheet/redis.html">Redis</a></li></ol></li><li class="chapter-item "><a href="../post/1.html">Scheduling system design</a></li><li class="spacer"></li><li class="chapter-item affix "><li class="part-title">doowonee.com@gmail.com</li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
+                            aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Doowonee</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/doowonee/dlog" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="검색은 영어만 가능 (only English)"
+                            aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mongodb"><a class="header" href="#mongodb">MongoDB</a></h1>
+<p>mongos는 <a href="https://docs.mongodb.com/manual/core/sharded-cluster-components/">공식 문서</a>를 보다시피 app과 mongodb간에 존재하는 서버로 앱서버와 가까이 두는걸 권고한다. 그래서 보통 앱서버와 같은 서버에서 기동하는거 같음. 참고로 몽고디비는 <code>Document</code> 삽입시 <code>Collection</code>이 없으면 자동으로 만든다.</p>
+<h2 id="authentication"><a class="header" href="#authentication">Authentication</a></h2>
+<p>MongoDB는 기본 설정이 인증 비활성화로 누구나 바로 supersuer로 접속 가능한데 처음 서버 실행시 <code>--auth</code> 옵션으로 인증 활성화 하면 id, pwd 기반 <code>SCRAM</code> 방식이 적용 됌</p>
+<p><a href="https://hub.docker.com/_/mongo">https://hub.docker.com/_/mongo</a> 보면 <code>MONGO_INITDB_ROOT_PASSWORD</code> 환경변수로 root 유저의 비밀번호를 지정 할 수 있는듯. <a href="https://www.mongodb.com/docs/manual/core/authentication/">https://www.mongodb.com/docs/manual/core/authentication/</a> 보고 유저 생성하고 Client 사용시 지정 하면 됌 <a href="https://www.mongodb.com/docs/manual/reference/built-in-roles/#dbAdminAnyDatabase">https://www.mongodb.com/docs/manual/reference/built-in-roles/#dbAdminAnyDatabase</a></p>
+<pre><code class="language-javascript">// userAdminAnyDatabase Role 적용 하면 될듯 아직 안해봄 걍 문서만 봄
+db.createUser(
+  {
+    user: &quot;myTester&quot;,
+    pwd:  passwordPrompt(),   // or cleartext password
+    roles: [ { role: &quot;readWrite&quot;, db: &quot;test&quot; },
+             { role: &quot;read&quot;, db: &quot;reporting&quot; } ]
+  }
+)
+</code></pre>
+<h2 id="query-note"><a class="header" href="#query-note">Query note</a></h2>
+<pre><code class="language-javascript">//  한번에 여러 문서업데이트
+db.missions.updateMany(
+      {  },
+      { $set: { &quot;new_field&quot; : ISODate('2023-07-01 00:00:00') } }
+);
+
+// index 스켄을 하지 않는 쿼리들을 조회 한다.
+db.adminCommand({
+ &quot;currentOp&quot;: true,
+ &quot;op&quot; : &quot;query&quot;,
+ &quot;planSummary&quot;: &quot;COLLSCAN&quot;
+})
+
+// write lock 을 기다리는 쿼리를 조회 한다.
+db.adminCommand({
+ &quot;currentOp&quot;: true,
+ &quot;waitingForLock&quot; : true,
+ &quot;$or&quot;: [
+    { &quot;op&quot; : { &quot;$in&quot; : [ &quot;insert&quot;, &quot;update&quot;, &quot;remove&quot; ] } },
+    { &quot;query.findandmodify&quot;: { &quot;$exists&quot;: true } }
+  ]
+})
+
+// 3초이상 실행되고있는 쿼리들을 조회 한다.
+// 여기서 opid를 얻어 죽이면 넓은 범위의 삭제쿼리 죽이는거 가능하다.
+db.adminCommand({
+    &quot;currentOp&quot;: true,
+     &quot;microsecs_running&quot; : {&quot;$gte&quot; : 30000000}
+})
+
+// 지정된 opid에 해당하는 쿼리를 강제로 실행 중지 시킨다.
+db.killOp(-607775162)
+
+// 현재 in-progress operations 중인것들을 조회 한다
+db.currentOp()
+</code></pre>
+<h2 id="index"><a class="header" href="#index">index</a></h2>
+<p>Firestore랑 비슷하다. asc, desc 등의 순서와 문서 스캔시 여러 컬럼을 사용하려면 compound index를 별도로 만들어 주어야 한다. <a href="https://www.mongodb.com/docs/manual/indexes/">문서</a>를 보면 알겠지만 단일 필드에 대한 인덱스는 순서가 상관이 없다</p>
+<p><a href="https://www.mongodb.com/docs/manual/core/index-creation/#behavior">https://www.mongodb.com/docs/manual/core/index-creation/#behavior</a> 보면 인덱스 생성은 synchronous operation으로 그냥 만들면 RW가 인덱스 생성 완료 될때 까지 대기 처리 되기 때문에 <strong>프로덕션 환경에서 절대 사용 하면 안된다.</strong> 그래서 <code>background</code> 옵션을 true로 하고 만들어야 하며 4.2 부터는 인덱스 구조의 효율성이 background 여부과 관계없이 동일하다. 클러스터 구성된 몽고디비의 경우 서비스를 예로들면 12억개 문서가 있는 컬렉션에 인덱스를 생성해보니 1개의 코어를 100% 사용하며 3시간 정도 소요 되고 생성이 완료 되면 슬레이브의 CPU 사용률이 마스터처럼 된다. 아마도 변경사항을 전파 하는과정에서 슬레이브도 동일한 연산을 내부적으로 하는거 같음.</p>
+<pre><code class="language-bash"># use db 한 db의 collection에 compound index를 asc 순서로 만든다
+db.collection_name.createIndex( { name: 1, a: 1, p: 1 }, { background: true } )
+</code></pre>
+<h2 id="data-design"><a class="header" href="#data-design">Data design</a></h2>
+<p>최대한 embedded document 모델을 사용하기를 권장한다. 물론 여러 문서 데이터 변경하는 multi document ACID transaction도 지원한다. 게시글과 댓글의 경우 nested로 하기 힘든 부분이 있음 댓글이 100개 이상 달릴때 또 댓글은 nested Objec라 limit도 정렬해서 가저올수도 없다는 단점이 있다. 이 구조는 유저의 배송 주소같은 상위 문서에 완전 종속되는 페이징 필요 없는 데이터를 지정하기에 안성맞춤 이라고 할수 있음. 또는 유저의 닉네임 히스토리 등도 해당할듯</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <a rel="prev" href="../cheatsheet/nats.html" class="mobile-nav-chapters previous"
+                            title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+
+                        <a rel="next" href="../cheatsheet/elasticsearch.html" class="mobile-nav-chapters next"
+                            title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+                <div class="giscus"></div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                <a rel="prev" href="../cheatsheet/nats.html" class="nav-chapters previous" title="Previous chapter"
+                    aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+
+                <a rel="next" href="../cheatsheet/elasticsearch.html" class="nav-chapters next" title="Next chapter"
+                    aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+</body>
+
+</html>
