@@ -2,6 +2,26 @@
 
 mongos는 [공식 문서](https://docs.mongodb.com/manual/core/sharded-cluster-components/)를 보다시피 app과 mongodb간에 존재하는 서버로 앱서버와 가까이 두는걸 권고한다. 그래서 보통 앱서버와 같은 서버에서 기동하는거 같음. 참고로 몽고디비는 `Document` 삽입시 `Collection`이 없으면 자동으로 만든다.
 
+## Authentication
+
+MongoDB는 기본 설정이 인증 비활성화로 누구나 바로 supersuer로 접속 가능한데 처음 서버 실행시 `--auth` 옵션으로 인증 활성화 하면 id, pwd 기반 `SCRAM` 방식이 적용 됌
+
+<https://hub.docker.com/_/mongo> 보면 `MONGO_INITDB_ROOT_PASSWORD` 환경변수로 root 유저의 비밀번호를 지정 할 수 있는듯. <https://www.mongodb.com/docs/manual/core/authentication/> 보고 유저 생성하고 Client 사용시 지정 하면 됌 <https://www.mongodb.com/docs/manual/reference/built-in-roles/#dbAdminAnyDatabase>
+
+```javascript
+// userAdminAnyDatabase Role 적용 하면 될듯 아직 안해봄 걍 문서만 봄
+db.createUser(
+  {
+    user: "myTester",
+    pwd:  passwordPrompt(),   // or cleartext password
+    roles: [ { role: "readWrite", db: "test" },
+             { role: "read", db: "reporting" } ]
+  }
+)
+```
+
+## Query note
+
 ```javascript
 //  한번에 여러 문서업데이트
 db.missions.updateMany(

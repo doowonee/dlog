@@ -31,3 +31,9 @@ nats stream subjects stream_name
 - <https://docs.nats.io/nats-concepts/jetstream/consumers> consumer 사용법
 - <https://docs.nats.io/reference/faq#what-is-the-right-kind-of-stream-consumer-to-use>
 - <https://natsbyexample.com/examples/jetstream/pull-consumer/rust>
+
+## job queue
+
+[scalable scheduling](/post/1.html) 관련 NATS 기능 찾아보는중
+
+consumer가 Nak에 duration을 주고 응답하면 알아서 주어진 시간 이후로 message가 re-deilivery 되는거 같음 이러면 미래 반복 작업 처리 하기 훨씬 수월한데 아직 테스트는 안해봄 <https://docs.rs/async-nats/latest/async_nats/jetstream/message/enum.AckKind.html#variant.Nak>
