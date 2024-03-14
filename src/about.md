@@ -1,6 +1,6 @@
 # About Doowonee
 
-https://m.blog.naver.com/jaypee_41/223377597759
+[NEW BLOG](https://m.blog.naver.com/jaypee_41/223377597759)
 
 ![profile image](i/profile.png)
 
