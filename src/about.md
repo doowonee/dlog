@@ -1,5 +1,7 @@
 # About Doowonee
 
+https://m.blog.naver.com/jaypee_41/223377597759
+
 ![profile image](i/profile.png)
 
 - Work as a software engineer since 2017
